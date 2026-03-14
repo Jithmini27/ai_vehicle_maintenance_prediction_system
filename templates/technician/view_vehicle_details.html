@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/technician.css') }}">
+</head>
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+        <div>
+            <h1>Vehicle Details</h1>
+            <p>Review registered vehicles and add service records</p>
+        </div>
+
+        <div class="section-actions">
+            <a href="{{ url_for('technician.technician_dashboard') }}" class="btn-outline">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    {% if vehicles %}
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Owner</th>
+                            <th>Plate No</th>
+                            <th>Brand</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>Fuel Type</th>
+                            <th>Current Mileage</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vehicle in vehicles %}
+                        <tr>
+                            <td>{{ vehicle.full_name }}</td>
+                            <td>{{ vehicle.plate_no }}</td>
+                            <td>{{ vehicle.brand }}</td>
+                            <td>{{ vehicle.model }}</td>
+                            <td>{{ vehicle.year }}</td>
+                            <td>{{ vehicle.fuel_type }}</td>
+                            <td>{{ vehicle.current_mileage }}</td>
+                            <td>
+                                <a href="{{ url_for('technician.add_service_record', vehicle_id=vehicle.vehicle_id) }}"
+                                   class="action-btn service-btn">
+                                    Add Service Record
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-card">
+            <p>No vehicles found.</p>
+            <a href="{{ url_for('technician.technician_dashboard') }}" class="btn-secondary">
+                Return to Dashboard
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

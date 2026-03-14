@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Predictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owner.css') }}">
+</head>
+<body class="dashboard-page">
+
+    <div class="page-section">
+        <div class="section-header">
+            <div>
+                <h1>Maintenance Predictions</h1>
+                <p>Review predicted maintenance needs for your vehicles</p>
+            </div>
+
+            <div class="section-actions">
+                <a href="{{ url_for('owner.owner_dashboard') }}" class="btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-wrapper">
+                {% for category, message in messages %}
+                  <p class="flash-message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% if predictions %}
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Plate No</th>
+                                <th>Vehicle</th>
+                                <th>Next Service KM</th>
+                                <th>Risk Score</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in predictions %}
+                            <tr>
+                                <td>{{ p.plate_no }}</td>
+                                <td>{{ p.brand }} {{ p.model }}</td>
+                                <td>{{ p.predicted_due_km }}</td>
+                                <td>
+                                    <span class="risk-badge
+                                    {% if p.risk_score >= 70 %}
+                                    risk-high
+                                    {% elif p.risk_score >= 40 %}
+                                    risk-medium
+                                    {% else %}
+                                    risk-low
+                                    {% endif %}
+                                    ">
+
+                                    {% if p.risk_score >= 70 %}
+                                    High
+                                    {% elif p.risk_score >= 40 %}
+                                    Medium
+                                    {% else %}
+                                    Low
+                                    {% endif %}
+
+                                    {{ p.risk_score }}%
+                                </span>
+
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('owner.book_service', vehicle_id=p.vehicle_id) }}" class="action-btn service-btn">
+                                        Book Service
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="empty-card">
+                <p>No predictions available yet.</p>
+                <a href="{{ url_for('owner.view_vehicles') }}" class="btn-secondary">View My Vehicles</a>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technician Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/technician.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="tech-hero">
+        <div>
+            <h1>Technician Dashboard</h1>
+            <p>Welcome, {{ full_name }}! Manage vehicles, service records, and bookings from one place.</p>
+        </div>
+
+        <a href="{{ url_for('auth.logout') }}" class="btn-logout-tech">
+            Logout
+        </a>
+    </div>
+
+    <div class="tech-summary-card">
+        <h2>Today’s Workflow</h2>
+        <p>
+            Review incoming vehicles, update service details, check AI-based maintenance results,
+            and manage customer bookings efficiently.
+        </p>
+    </div>
+
+    <div class="tech-dashboard-grid">
+
+        <a href="{{ url_for('auth.profile') }}" class="tech-dashboard-card">
+            <div class="tech-icon">👤</div>
+            <h3>My Profile</h3>
+            <p>View your technician account details</p>
+        </a>
+
+        <a href="{{ url_for('technician.view_vehicle_details') }}" class="tech-dashboard-card">
+            <div class="tech-icon">🚗</div>
+            <h3>View Vehicles</h3>
+            <p>Check all registered customer vehicles</p>
+        </a>
+
+        <a href="{{ url_for('technician.manage_service_records') }}" class="tech-dashboard-card">
+            <div class="tech-icon">🛠️</div>
+            <h3>Service Records</h3>
+            <p>Review and manage maintenance history</p>
+        </a>
+
+        <a href="{{ url_for('technician.view_bookings') }}" class="tech-dashboard-card">
+            <div class="tech-icon">📅</div>
+            <h3>Bookings</h3>
+            <p>Track and update service bookings</p>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

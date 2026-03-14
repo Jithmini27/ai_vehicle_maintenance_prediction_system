@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Records</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/technician.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+        <div>
+            <h1>Service Records</h1>
+            <p>View all maintenance history added by technicians</p>
+        </div>
+
+        <div class="section-actions">
+            <a href="{{ url_for('technician.technician_dashboard') }}"
+               class="btn-outline">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrapper">
+          {% for category, message in messages %}
+            <p class="flash-message {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if records %}
+    <div class="table-card">
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Plate No</th>
+                        <th>Vehicle</th>
+                        <th>Service Date</th>
+                        <th>Odometer</th>
+                        <th>Service Type</th>
+                        <th>Parts</th>
+                        <th>Cost</th>
+                        <th>Next KM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for r in records %}
+                    <tr>
+                        <td>{{ r.plate_no }}</td>
+                        <td>{{ r.brand }} {{ r.model }}</td>
+                        <td>{{ r.service_date }}</td>
+                        <td>{{ r.odometer_reading }}</td>
+                        <td>{{ r.service_type }}</td>
+                        <td>{{ r.parts_replaced }}</td>
+                        <td>Rs {{ r.cost }}</td>
+                        <td>{{ r.next_service_suggested_km }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div class="empty-card">
+            <p>No service records found.</p>
+            <a href="{{ url_for('technician.technician_dashboard') }}"
+               class="btn-secondary">
+               Return to Dashboard
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

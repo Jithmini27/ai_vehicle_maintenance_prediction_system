@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Notifications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owner.css') }}">
+</head>
+<body class="dashboard-page">
+
+    <div class="page-section">
+        <div class="section-header">
+            <div>
+                <h1>My Notifications</h1>
+                <p>Review your vehicle maintenance alerts and updates</p>
+            </div>
+
+            <div class="section-actions">
+                <a href="{{ url_for('owner.owner_dashboard') }}" class="btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-wrapper">
+                {% for category, message in messages %}
+                  <p class="flash-message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% if notifications %}
+            <div class="table-card">
+                <div class="notification-top-actions">
+                    <form action="{{ url_for('owner.mark_all_notifications_read') }}" method="POST">
+                        <button type="submit" class="btn-secondary">Mark All as Read</button>
+                    </form>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle</th>
+                                <th>Message</th>
+                                <th>Risk Level</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for notification in notifications %}
+                            <tr>
+                                <td>
+                                    {% if notification.plate_no %}
+                                        {{ notification.plate_no }} - {{ notification.brand }} {{ notification.model }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ notification.message }}</td>
+
+                                <td>
+                                    {% if 'High' in notification.message %}
+                                        <span class="risk-badge risk-high">High</span>
+                                    {% elif 'Medium' in notification.message %}
+                                        <span class="risk-badge risk-medium">Medium</span>
+                                    {% else %}
+                                        <span class="risk-badge risk-low">Low</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if notification.is_read %}
+                                        <span class="status-badge status-read">Read</span>
+                                    {% else %}
+                                        <span class="status-badge status-unread">Unread</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ notification.created_at }}</td>
+
+                                <td>
+                                    {% if not notification.is_read %}
+                                        <form action="{{ url_for('owner.mark_notification_read', notification_id=notification.notification_id) }}" method="POST">
+                                            <button type="submit" class="action-btn edit-btn">Mark as Read</button>
+                                        </form>
+                                    {% else %}
+                                        <span class="dash-muted">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="empty-card">
+                <p>No notifications available.</p>
+                <a href="{{ url_for('owner.owner_dashboard') }}" class="btn-secondary">Return to Dashboard</a>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

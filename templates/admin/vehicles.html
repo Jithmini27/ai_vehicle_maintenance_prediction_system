@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vehicles</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <h1>Vehicles</h1>
+            <p>All registered vehicles in the system</p>
+        </div>
+
+        <div>
+            <a href="{{ url_for('admin.admin_dashboard') }}"
+               class="btn-outline">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+
+
+    {% if vehicles %}
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table class="custom-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plate</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for v in vehicles %}
+
+                    <tr>
+
+                        <td>{{ v.vehicle_id }}</td>
+
+                        <td>{{ v.plate_no }}</td>
+
+                        <td>{{ v.brand }}</td>
+
+                        <td>{{ v.model }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+        <div class="empty-card">
+
+            <p>No vehicles found.</p>
+
+            <a href="{{ url_for('admin.admin_dashboard') }}"
+               class="btn-secondary">
+
+               Return to Dashboard
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

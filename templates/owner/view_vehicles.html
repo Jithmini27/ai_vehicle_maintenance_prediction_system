@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Vehicles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owner.css') }}">
+</head>
+<body class="dashboard-page">
+
+    <div class="page-section">
+        <div class="section-header">
+            <div>
+                <h1>My Vehicles</h1>
+                <p>View and manage your registered vehicles</p>
+            </div>
+
+            <div class="section-actions">
+                <a href="{{ url_for('owner.add_vehicle') }}" class="btn-secondary">Add New Vehicle</a>
+                <a href="{{ url_for('owner.owner_dashboard') }}" class="btn-outline">Back to Dashboard</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-wrapper">
+                {% for category, message in messages %}
+                  <p class="flash-message {{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% if vehicles %}
+            <div class="table-card">
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Plate No</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Year</th>
+                                <th>Fuel Type</th>
+                                <th>Last Service Date</th>
+                                <th>Current Mileage</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vehicle in vehicles %}
+                            <tr>
+                                <td>{{ vehicle.plate_no }}</td>
+                                <td>{{ vehicle.brand }}</td>
+                                <td>{{ vehicle.model }}</td>
+                                <td>{{ vehicle.year }}</td>
+                                <td>{{ vehicle.fuel_type }}</td>
+                                <td>{{ vehicle.last_service_date }}</td>
+                                <td>{{ vehicle.current_mileage }}</td>
+                                <td>
+                                    <div class="action-group">
+                                        <a href="{{ url_for('owner.edit_vehicle', vehicle_id=vehicle.vehicle_id) }}" class="action-btn edit-btn">Edit</a>
+
+                                        <form action="{{ url_for('owner.delete_vehicle', vehicle_id=vehicle.vehicle_id) }}" method="POST" style="display:inline;">
+                                            <button type="submit" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this vehicle?')">Delete</button>
+                                        </form>
+
+                                        <a href="{{ url_for('owner.book_service', vehicle_id=vehicle.vehicle_id) }}" class="action-btn service-btn">Book Service</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            <div class="empty-card">
+                <p>No vehicles added yet.</p>
+                <a href="{{ url_for('owner.add_vehicle') }}" class="btn-secondary">Add Your First Vehicle</a>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

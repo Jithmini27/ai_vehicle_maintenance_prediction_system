@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predictions</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+<div class="section-header">
+    <div>
+        <h1>Predictions</h1>
+        <p>AI maintenance prediction results</p>
+    </div>
+
+    <a href="{{ url_for('admin.admin_dashboard') }}"
+       class="btn-outline">
+        Back to Dashboard
+    </a>
+</div>
+
+
+{% if predictions %}
+
+<div class="table-card">
+<div class="table-responsive">
+
+<table class="custom-table">
+
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Vehicle</th>
+    <th>Risk Score</th>
+    <th>Due KM</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for p in predictions %}
+<tr>
+
+    <td>{{ p.prediction_id }}</td>
+
+    <td>
+        {{ p.vehicle_id }}
+    </td>
+
+    <td>
+
+        {% if p.risk_score >= 70 %}
+            <span class="status-badge status-cancelled">
+                {{ p.risk_score }}% High
+            </span>
+
+        {% elif p.risk_score >= 40 %}
+            <span class="status-badge status-confirmed">
+                {{ p.risk_score }}% Medium
+            </span>
+
+        {% else %}
+            <span class="status-badge status-completed">
+                {{ p.risk_score }}% Low
+            </span>
+
+        {% endif %}
+
+    </td>
+
+    <td>{{ p.predicted_due_km }}</td>
+
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+{% else %}
+
+<div class="empty-card">
+    <p>No predictions found.</p>
+
+    <a href="{{ url_for('admin.admin_dashboard') }}"
+       class="btn-secondary">
+        Back to Dashboard
+    </a>
+</div>
+
+{% endif %}
+
+
+</body>
+</html>

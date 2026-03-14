@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owner.css') }}">
+</head>
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+        <div>
+            <h1>Book Service</h1>
+            <p>Schedule a service appointment for your vehicle</p>
+        </div>
+
+        <div class="section-actions">
+            <a href="{{ url_for('owner.view_predictions') }}" class="btn-outline">Back to Predictions</a>
+            <a href="{{ url_for('owner.view_vehicles') }}" class="btn-outline">My Vehicles</a>
+        </div>
+    </div>
+
+    <div class="vehicle-info-card">
+        <p><strong>Vehicle:</strong> {{ vehicle.plate_no }} - {{ vehicle.brand }} {{ vehicle.model }}</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-wrapper">
+            {% for category, message in messages %}
+                <p class="flash-message {{ category }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="form-card booking-form-card">
+        <form method="POST" class="custom-form">
+
+            <div class="form-group">
+                <label>Booking Date</label>
+                <input type="date" name="booking_date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Time</label>
+                <input type="time" name="preferred_time" required>
+            </div>
+
+            <div class="form-group">
+                <label>Remarks</label>
+                <textarea name="remarks" rows="4" placeholder="Enter any additional notes"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Submit Booking</button>
+                <a href="{{ url_for('owner.view_predictions') }}" class="btn-secondary">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

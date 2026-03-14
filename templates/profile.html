@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="profile-page">
+
+    <div class="profile-wrapper">
+        <div class="profile-card">
+
+            <div class="profile-header">
+                <h1>My Profile</h1>
+                <p>View and update your account details</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert {{ category }}">
+                      {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="profile-form">
+
+                <div class="profile-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" required>
+                </div>
+
+                <div class="profile-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ user.email }}" required>
+                </div>
+
+                <div class="profile-group">
+                    <label>Phone</label>
+                    <input type="text" name="phone" value="{{ user.phone }}" required>
+                </div>
+
+                <div class="profile-group">
+                    <label>New Password</label>
+                    <input type="password" name="password" placeholder="Leave blank to keep current password">
+                </div>
+
+                <div class="profile-group">
+                    <label>Role</label>
+                    <input type="text" value="{{ user.role }}" readonly>
+                </div>
+
+                <div class="profile-actions">
+                    <button type="submit" class="profile-btn-primary">Update Profile</button>
+
+                    {% if session["role"] == "owner" %}
+                        <a href="{{ url_for('owner.owner_dashboard') }}" class="profile-btn-secondary">Back to Dashboard</a>
+                    {% elif session["role"] == "technician" %}
+                        <a href="{{ url_for('technician.technician_dashboard') }}" class="profile-btn-secondary">Back to Dashboard</a>
+                    {% elif session["role"] == "admin" %}
+                        <a href="{{ url_for('admin.admin_dashboard') }}" class="profile-btn-secondary">Back to Dashboard</a>
+                    {% endif %}
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

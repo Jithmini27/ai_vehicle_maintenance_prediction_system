@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <div class="section-header report-header">
+        <div>
+            <h1>System Reports</h1>
+            <p>View a summary of key system records and print the report if needed.</p>
+        </div>
+
+        <div class="report-actions">
+            <a href="{{ url_for('admin.admin_dashboard') }}" class="btn-outline">Back to Dashboard</a>
+            <button onclick="window.print()" class="btn-secondary print-btn">Print Report</button>
+        </div>
+    </div>
+
+    <div class="admin-section-card report-print-area">
+        
+        <div class="report-top">
+            <h2>System Summary Report</h2>
+            <p class="report-date">Generated on: <span id="reportDate"></span></p>
+        </div>
+
+        <div class="report-grid">
+            <div class="report-stat-card">
+                <h3>Total Users</h3>
+                <p>{{ total_users }}</p>
+            </div>
+
+            <div class="report-stat-card">
+                <h3>Total Vehicles</h3>
+                <p>{{ total_vehicles }}</p>
+            </div>
+
+            <div class="report-stat-card">
+                <h3>Total Service Records</h3>
+                <p>{{ total_services }}</p>
+            </div>
+
+            <div class="report-stat-card">
+                <h3>Total Predictions</h3>
+                <p>{{ total_predictions }}</p>
+            </div>
+
+            <div class="report-stat-card">
+                <h3>Total Bookings</h3>
+                <p>{{ total_bookings }}</p>
+            </div>
+        </div>
+
+        <div class="report-table-card">
+            <table class="custom-table report-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Users</td>
+                        <td>{{ total_users }}</td>
+                    </tr>
+                    <tr>
+                        <td>Vehicles</td>
+                        <td>{{ total_vehicles }}</td>
+                    </tr>
+                    <tr>
+                        <td>Service Records</td>
+                        <td>{{ total_services }}</td>
+                    </tr>
+                    <tr>
+                        <td>Predictions</td>
+                        <td>{{ total_predictions }}</td>
+                    </tr>
+                    <tr>
+                        <td>Bookings</td>
+                        <td>{{ total_bookings }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const now = new Date();
+        document.getElementById("reportDate").textContent = now.toLocaleString();
+    </script>
+
+</body>
+</html>

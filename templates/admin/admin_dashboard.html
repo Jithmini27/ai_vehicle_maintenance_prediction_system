@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="admin-hero">
+
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p>Welcome, {{ full_name }}! Manage users, vehicles, bookings, predictions, and backups.</p>
+        </div>
+
+        <a href="{{ url_for('auth.logout') }}"
+           class="btn-logout-admin">
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- MANAGEMENT -->
+
+    <div class="admin-section-card">
+
+        <h2>System Management</h2>
+
+        <div class="admin-dashboard-grid">
+
+            <a href="{{ url_for('auth.profile') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">👤</div>
+                <h3>My Profile</h3>
+                <p>View admin profile</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.view_users') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">👥</div>
+                <h3>Users</h3>
+                <p>Manage system users</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.view_vehicles') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">🚗</div>
+                <h3>Vehicles</h3>
+                <p>View registered vehicles</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.view_predictions') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">📊</div>
+                <h3>Predictions</h3>
+                <p>AI prediction results</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.view_bookings') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">📅</div>
+                <h3>Bookings</h3>
+                <p>Service booking requests</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.reports') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">📄</div>
+                <h3>Reports</h3>
+                <p>System reports</p>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.analytics') }}"
+               class="admin-dashboard-card">
+
+                <div class="admin-icon">📈</div>
+                <h3>Analytics</h3>
+                <p>System statistics</p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BACKUP -->
+
+    <div class="admin-section-card">
+
+        <h2>Backup & Export</h2>
+
+        <div class="admin-dashboard-grid">
+
+
+            <a href="{{ url_for('admin.export_users') }}"
+               class="admin-dashboard-card backup-card">
+
+                <div class="admin-icon">💾</div>
+                <h3>Users Backup</h3>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.export_vehicles') }}"
+               class="admin-dashboard-card backup-card">
+
+                <div class="admin-icon">💾</div>
+                <h3>Vehicles Backup</h3>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.export_service_records') }}"
+               class="admin-dashboard-card backup-card">
+
+                <div class="admin-icon">💾</div>
+                <h3>Service Records Backup</h3>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.export_predictions') }}"
+               class="admin-dashboard-card backup-card">
+
+                <div class="admin-icon">💾</div>
+                <h3>Predictions Backup</h3>
+
+            </a>
+
+
+            <a href="{{ url_for('admin.export_bookings') }}"
+               class="admin-dashboard-card backup-card">
+
+                <div class="admin-icon">💾</div>
+                <h3>Bookings Backup</h3>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

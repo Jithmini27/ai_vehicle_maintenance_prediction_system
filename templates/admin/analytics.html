@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+
+    <div class="section-header">
+        <div>
+            <h1>Analytics</h1>
+            <p>Overview of system insights and administrative monitoring areas.</p>
+        </div>
+
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn-outline">Back to Dashboard</a>
+    </div>
+
+    <div class="admin-section-card">
+        <h2>Analytics Overview</h2>
+
+        <div class="analytics-stats">
+            <div class="analytics-stat-box">
+                <h4>Total Users</h4>
+                <p>Available</p>
+            </div>
+
+            <div class="analytics-stat-box">
+                <h4>Total Vehicles</h4>
+                <p>Available</p>
+            </div>
+
+            <div class="analytics-stat-box">
+                <h4>Total Predictions</h4>
+                <p>Available</p>
+            </div>
+
+            <div class="analytics-stat-box">
+                <h4>Total Bookings</h4>
+                <p>Available</p>
+            </div>
+        </div>
+
+        <div class="analytics-grid">
+            <div class="analytics-card">
+                <div class="analytics-icon">🚗</div>
+                <h3>Vehicle Maintenance Predictions</h3>
+                <p>Monitor AI-generated maintenance prediction outcomes and future service risk trends.</p>
+            </div>
+
+            <div class="analytics-card">
+                <div class="analytics-icon">🧾</div>
+                <h3>Maintenance History Tracking</h3>
+                <p>Track completed services, replaced parts, and previously reported vehicle issues.</p>
+            </div>
+
+            <div class="analytics-card">
+                <div class="analytics-icon">📈</div>
+                <h3>Data Visualization</h3>
+                <p>View maintenance summaries and predicted trends through clear analytical presentation.</p>
+            </div>
+
+            <div class="analytics-card">
+                <div class="analytics-icon">🛠️</div>
+                <h3>Service History Statistics</h3>
+                <p>Review service activity patterns and recorded maintenance history in the system.</p>
+            </div>
+
+            <div class="analytics-card">
+                <div class="analytics-icon">📅</div>
+                <h3>Booking Activity</h3>
+                <p>Track booking requests, confirmations, and completed service appointments.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-section-card">
+        <h2>Analytics Summary</h2>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Analytics Area</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Predictions</td>
+                        <td>Vehicle maintenance predictions and related AI results</td>
+                        <td><span class="status-pill status-active">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Maintenance History Tracking</td>
+                        <td>Completed services, replaced parts, and previous reported issues</td>
+                        <td><span class="status-pill status-active">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data Visualization</td>
+                        <td>Structured display of maintenance summaries and predicted trends</td>
+                        <td><span class="status-pill status-active">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Service Records</td>
+                        <td>Historical service and maintenance data for registered vehicles</td>
+                        <td><span class="status-pill status-active">Available</span></td>
+                    </tr>
+                    <tr>
+                        <td>Bookings</td>
+                        <td>Service booking activities and request tracking</td>
+                        <td><span class="status-pill status-active">Available</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

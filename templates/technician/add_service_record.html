@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Service Record</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/technician.css') }}">
+
+</head>
+
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <h1>Add Service Record</h1>
+            <p>
+                Vehicle:
+                <strong>
+                    {{ vehicle.plate_no }} -
+                    {{ vehicle.brand }} {{ vehicle.model }}
+                </strong>
+            </p>
+        </div>
+
+        <div class="section-actions">
+            <a href="{{ url_for('technician.view_vehicle_details') }}"
+               class="btn-outline">
+                Back to Vehicles
+            </a>
+        </div>
+
+    </div>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="table-card">
+            {% for category, message in messages %}
+                <p><strong>{{ message }}</strong></p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% endwith %}
+
+
+
+    <form method="POST" class="form-card">
+
+        <!-- SERVICE INFO -->
+
+        <h2 class="form-title">Service Information</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Service Date</label>
+                <input type="date" name="service_date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Odometer Reading</label>
+                <input type="number" name="odometer_reading" required>
+            </div>
+
+            <div class="form-group">
+                <label>Service Type</label>
+                <input type="text" name="service_type" required>
+            </div>
+
+            <div class="form-group">
+                <label>Parts Replaced</label>
+                <input type="text" name="parts_replaced">
+            </div>
+
+            <div class="form-group">
+                <label>Cost</label>
+                <input type="number" step="0.01" name="cost">
+            </div>
+
+            <div class="form-group">
+                <label>Service Interval (KM)</label>
+                <input type="number" name="service_interval_km" required>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>Notes</label>
+            <textarea name="notes"></textarea>
+        </div>
+
+
+        <!-- AI SECTION -->
+
+        <h2 class="form-title">AI Prediction Data</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Maintenance History</label>
+                <select name="maintenance_history">
+                    <option value="Good">Good</option>
+                    <option value="Average">Average</option>
+                    <option value="Poor">Poor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Reported Issues</label>
+                <input type="number" name="reported_issues" value="1">
+            </div>
+
+            <div class="form-group">
+                <label>Transmission</label>
+                <select name="transmission_type">
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Engine Size</label>
+                <input type="number" name="engine_size" value="2000">
+            </div>
+
+            <div class="form-group">
+                <label>Owner Type</label>
+                <select name="owner_type">
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Insurance Premium</label>
+                <input type="number" name="insurance_premium" value="50000">
+            </div>
+
+            <div class="form-group">
+                <label>Service History</label>
+                <input type="number" name="service_history" value="2">
+            </div>
+
+            <div class="form-group">
+                <label>Accident History</label>
+                <input type="number" name="accident_history" value="0">
+            </div>
+
+            <div class="form-group">
+                <label>Fuel Efficiency</label>
+                <input type="number" step="0.1" name="fuel_efficiency" value="15">
+            </div>
+
+            <div class="form-group">
+                <label>Tire Condition</label>
+                <select name="tire_condition">
+                    <option value="New">New</option>
+                    <option value="Good">Good</option>
+                    <option value="Worn Out">Worn Out</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Brake Condition</label>
+                <select name="brake_condition">
+                    <option value="New">New</option>
+                    <option value="Good">Good</option>
+                    <option value="Worn Out">Worn Out</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Battery Status</label>
+                <select name="battery_status">
+                    <option value="New">New</option>
+                    <option value="Good">Good</option>
+                    <option value="Weak">Weak</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn-primary">
+                Save Service Record
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

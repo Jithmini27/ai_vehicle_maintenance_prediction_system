@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owner.css') }}">
+</head>
+<body class="dashboard-page">
+
+    <div class="dashboard-wrapper">
+        <div class="dashboard-container">
+
+            <div class="dashboard-header">
+                <div>
+                    <h1>Owner Dashboard</h1>
+                    <p>
+Welcome, {{ full_name }}! Manage your vehicles, predictions, bookings, and profile from one place.
+</p>
+                </div>
+                <a href="{{ url_for('auth.logout') }}" class="btn-logout">Logout</a>
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="dashboard-card notification-card">
+                    <h2>🔔 Notifications ({{ unread_count }})</h2>
+
+                    {% if unread_count > 0 %}
+                        <p class="notification-count">You have {{ unread_count }} new alerts</p>
+                    {% endif %}
+
+                    {% if recent_notifications %}
+                        <ul class="notification-list">
+                            {% for notification in recent_notifications %}
+                                <li>
+                                    <span class="notification-message">{{ notification.message }}</span>
+                                    <small>{{ notification.created_at }}</small>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="empty-text">No recent notifications.</p>
+                    {% endif %}
+
+                    <a href="{{ url_for('owner.view_notifications') }}" class="btn-secondary">View All Notifications</a>
+                </div>
+
+                <div class="dashboard-card quick-links-card">
+    <h2>Quick Actions</h2>
+
+    <div class="quick-links">
+
+        <a href="{{ url_for('auth.profile') }}" class="dashboard-link-card">
+            <div class="dash-icon">👤</div>
+            <div>My Profile</div>
+        </a>
+
+        <a href="{{ url_for('owner.add_vehicle') }}" class="dashboard-link-card">
+            <div class="dash-icon">➕</div>
+            <div>Add Vehicle</div>
+        </a>
+
+        <a href="{{ url_for('owner.view_vehicles') }}" class="dashboard-link-card">
+            <div class="dash-icon">🚗</div>
+            <div>View My Vehicles</div>
+        </a>
+
+        <a href="{{ url_for('owner.view_predictions') }}" class="dashboard-link-card">
+            <div class="dash-icon">📊</div>
+            <div>View Predictions</div>
+        </a>
+
+        <a href="{{ url_for('owner.my_bookings') }}" class="dashboard-link-card">
+            <div class="dash-icon">📅</div>
+            <div>My Bookings</div>
+        </a>
+
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

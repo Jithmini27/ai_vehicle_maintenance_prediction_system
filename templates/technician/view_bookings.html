@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Bookings</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/technician.css') }}">
+</head>
+<body class="dashboard-page">
+
+<div class="page-section">
+
+    <div class="section-header">
+        <div>
+            <h1>Service Bookings</h1>
+            <p>Manage customer service booking requests</p>
+        </div>
+
+        <div class="section-actions">
+            <a href="{{ url_for('technician.technician_dashboard') }}" class="btn-outline">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    {% if bookings %}
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Owner</th>
+                            <th>Plate</th>
+                            <th>Vehicle</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Remarks</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for b in bookings %}
+                        <tr>
+                            <td>{{ b.full_name }}</td>
+                            <td>{{ b.plate_no }}</td>
+                            <td>{{ b.brand }} {{ b.model }}</td>
+                            <td>{{ b.booking_date }}</td>
+                            <td>{{ b.preferred_time }}</td>
+                            <td>{{ b.remarks }}</td>
+
+                            <td>
+                                {% if b.status == "pending" %}
+                                    <span class="status-badge status-pending">Pending</span>
+                                {% elif b.status == "confirmed" %}
+                                    <span class="status-badge status-confirmed">Confirmed</span>
+                                {% elif b.status == "completed" %}
+                                    <span class="status-badge status-completed">Completed</span>
+                                {% elif b.status == "cancelled" %}
+                                    <span class="status-badge status-cancelled">Cancelled</span>
+                                {% else %}
+                                    {{ b.status }}
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <div class="booking-action-group">
+                                    <a href="{{ url_for('technician.update_booking_status', booking_id=b.booking_id, status='confirmed') }}"
+                                       class="action-btn confirm-btn">
+                                        Confirm
+                                    </a>
+
+                                    <a href="{{ url_for('technician.update_booking_status', booking_id=b.booking_id, status='completed') }}"
+                                       class="action-btn complete-btn">
+                                        Complete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-card">
+            <p>No bookings found.</p>
+            <a href="{{ url_for('technician.technician_dashboard') }}" class="btn-secondary">
+                Return to Dashboard
+            </a>
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+digraph {
+	A [label="Service Record Input"]
+	B [label=Preprocessing]
+	C [label=Encoding]
+	D [label="RandomForest Model"]
+	E [label=Prediction]
+	F [label="Save to Database"]
+	G [label="Show to Owner"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+	F -> G
+}
